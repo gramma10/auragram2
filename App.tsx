@@ -10,7 +10,6 @@ import Studio from './components/Studio.tsx';
 import Contact from './components/Contact.tsx';
 import Footer from './components/Footer.tsx';
 import ProjectModal from './components/ProjectModal.tsx';
-import Chatbot from './components/Chatbot.tsx';
 import BackgroundAura from './components/BackgroundAura.tsx';
 import CustomCursor from './components/CustomCursor.tsx';
 
@@ -61,7 +60,6 @@ const App: React.FC = () => {
       </div>
 
       <ProjectModal isOpen={isModalOpen} onClose={closeModal} lang={lang} />
-      <Chatbot lang={lang} />
     </div>
   );
 };

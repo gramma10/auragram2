@@ -1,4 +1,4 @@
-
+/// <reference types="vite/client" />
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
@@ -83,7 +83,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ lang }) => {
 
   const handleSpeak = async (text: string, index: number) => {
     try {
-      const apiKey = process.env.API_KEY;
+      const apiKey = import.meta.env.VITE_API_KEY;
       if (!apiKey) return;
 
       setMessages(prev => prev.map((m, i) => i === index ? { ...m, isAudioLoading: true } : m));
@@ -124,7 +124,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ lang }) => {
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
     const userMsg = input.trim();
-    const apiKey = process.env.API_KEY;
+    const apiKey = import.meta.env.VITE_API_KEY;
     if (!apiKey) {
       setMessages(prev => [...prev, { role: 'user', text: userMsg }, { role: 'bot', text: "API Key missing." }]);
       setInput('');
@@ -138,7 +138,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ lang }) => {
       const ai = new GoogleGenAI({ apiKey });
       const systemInstruction = `You are the AuraGram Concierge. Sophisticated, minimalist tone. High-end luxury.`;
       const response = await ai.models.generateContent({
-        model: 'gemini-3-pro-preview',
+        model: 'gemini-1.5-flash',
         contents: [...messages, { role: 'user', text: userMsg }].map(m => ({
           role: m.role === 'user' ? 'user' : 'model',
           parts: [{ text: m.text }]
@@ -148,6 +148,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ lang }) => {
       const botText = response.text || "Error processing request.";
       setMessages(prev => [...prev, { role: 'bot', text: botText }]);
     } catch (error) {
+      console.error("Gemini API Error:", error);
       setMessages(prev => [...prev, { role: 'bot', text: "Connection error." }]);
     } finally {
       setIsLoading(false);

@@ -17,13 +17,44 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, lang }) =>
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    
+    const desc = formData.get('description') || '';
+    const projectDetails = service ? `Service: ${service}\nDetails: ${desc}` : desc;
+
+    const payload = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      phone: formData.get('phone'),
+      project: projectDetails,
+    };
+
+    try {
+      const response = await fetch('https://hook.eu1.make.com/zxk8wbge2iivclgabb49tw48bi0jub5m', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.ok) {
+        setIsSuccess(true);
+        form.reset();
+        setService('');
+      } else {
+        console.error('Submission failed');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    } finally {
       setIsSubmitting(false);
-      setIsSuccess(true);
-    }, 2000);
+    }
   };
 
   const translations = {
@@ -35,6 +66,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, lang }) =>
       title: "Start a Project",
       name: "Name",
       email: "Email Address",
+      phone: "Phone Number",
       building: "What are we building?",
       services: ['Website', 'Software', 'Automation'],
       desc: "Tell us about your project...",
@@ -48,6 +80,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, lang }) =>
       title: "Ξεκινήστε ένα Έργο",
       name: "Όνομα",
       email: "Διεύθυνση Email",
+      phone: "Τηλέφωνο",
       building: "Τι σχεδιάζουμε;",
       services: ['Website', 'Λογισμικό', 'Αυτοματισμοί'],
       desc: "Πείτε μας για το έργο σας...",
@@ -99,6 +132,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, lang }) =>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                   <div className="relative group">
                     <input
+                      name="name"
                       type="text"
                       placeholder={t.name}
                       required
@@ -107,8 +141,18 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, lang }) =>
                   </div>
                   <div className="relative group">
                     <input
+                      name="email"
                       type="email"
                       placeholder={t.email}
+                      required
+                      className="w-full bg-transparent border-b border-white/10 py-4 text-white placeholder-white/20 focus:border-royal focus:outline-none transition-all duration-500"
+                    />
+                  </div>
+                  <div className="relative group md:col-span-2">
+                    <input
+                      name="phone"
+                      type="tel"
+                      placeholder={t.phone}
                       required
                       className="w-full bg-transparent border-b border-white/10 py-4 text-white placeholder-white/20 focus:border-royal focus:outline-none transition-all duration-500"
                     />
@@ -133,6 +177,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({ isOpen, onClose, lang }) =>
 
                 <div className="relative group">
                   <textarea
+                    name="description"
                     placeholder={t.desc}
                     rows={3}
                     className="w-full bg-transparent border-b border-white/10 py-4 text-white placeholder-white/20 focus:border-royal focus:outline-none transition-all duration-500 resize-none"
