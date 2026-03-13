@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import Navbar from './components/Navbar.tsx';
 import Hero from './components/Hero.tsx';
 import Services from './components/Services.tsx';
+import ProductSpotlight from './components/ProductSpotlight.tsx';
 import Portfolio from './components/Portfolio.tsx';
 import Studio from './components/Studio.tsx';
 import Contact from './components/Contact.tsx';
@@ -52,6 +53,7 @@ const App: React.FC = () => {
         <main>
           <Hero lang={lang} onStartProject={openModal} />
           <Portfolio lang={lang} />
+          <ProductSpotlight lang={lang} />
           <Services lang={lang} />
           <Studio lang={lang} />
           <Contact lang={lang} onStartProject={openModal} />
