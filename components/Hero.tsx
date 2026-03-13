@@ -25,7 +25,7 @@ const Hero: React.FC<HeroProps> = ({ lang, onStartProject }) => {
       btn2: "Explore Work"
     },
     gr: {
-      sub: "Κατασκευη website & συστηματων",
+      sub: "Κατασκευη website & συστημάτων",
       title: (
         <span className="flex flex-col">
           <span>Αρχιτέκτονες της</span>
