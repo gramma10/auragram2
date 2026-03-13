@@ -64,7 +64,7 @@ const Footer: React.FC<FooterProps> = ({ lang, onStartProject }) => {
         </div>
         
         <div className="flex flex-col md:flex-row items-center justify-between pt-12 gap-6 opacity-30 border-t border-white/5">
-          <div className="text-[10px] font-bold text-white uppercase tracking-[0.15em] whitespace-nowrap">
+          <div className="text-[10px] font-bold text-white uppercase tracking-[0.15em]">
             {t.copy}
           </div>
           <div className="text-[10px] font-bold text-white uppercase tracking-[0.15em]">

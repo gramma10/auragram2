@@ -28,7 +28,7 @@ const Contact: React.FC<ContactProps> = ({ lang, onStartProject }) => {
   const t = content[lang];
 
   return (
-    <section id="contact" className="py-32 md:py-56 px-6 relative overflow-hidden flex items-center min-h-[80vh]">
+    <section id="contact" className="py-20 md:py-56 px-6 relative overflow-hidden flex items-center min-h-[60vh] md:min-h-[80vh]">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03)_0%,transparent_70%)] pointer-events-none"></div>
 
       <div className="container mx-auto max-w-7xl relative z-10">

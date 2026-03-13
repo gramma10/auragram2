@@ -62,7 +62,7 @@ const Studio: React.FC<StudioProps> = ({ lang }) => {
               <p>{t.p2}</p>
             </div>
 
-            <div className="mt-16 grid grid-cols-2 gap-12 border-t border-white/5 pt-12">
+            <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-12 border-t border-white/5 pt-12">
               <div>
                 <h4 className="text-royal font-bold text-xl mb-4 tracking-tight">{t.c1t}</h4>
                 <p className="text-sm text-white/30 leading-relaxed">{t.c1d}</p>

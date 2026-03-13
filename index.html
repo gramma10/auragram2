@@ -30,7 +30,7 @@
     <style type="text/tailwindcss">
         @layer base {
             body {
-                @apply bg-midnight text-white font-sans selection:bg-royal selection:text-white antialiased cursor-none;
+                @apply bg-midnight text-white font-sans selection:bg-royal selection:text-white antialiased;
                 overflow-x: hidden;
             }
 
@@ -74,14 +74,21 @@
         .hero-title-gradient {
             background: linear-gradient(180deg, #FFFFFF 0%, #3533cd 100%);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        a,
-        button,
-        input,
-        textarea {
-            cursor: none !important;
+        /* Only hide cursor on devices with a mouse pointer */
+        @media (pointer: fine) {
+            body {
+                cursor: none;
+            }
+            a,
+            button,
+            input,
+            textarea {
+                cursor: none !important;
+            }
         }
     </style>
     <script type="importmap">

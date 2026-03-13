@@ -186,7 +186,7 @@ const ProductSpotlight: React.FC<ProductSpotlightProps> = ({ lang }) => {
 
   return (
     <>
-      <section id="product-spotlight" className="py-32 md:py-48 px-6 relative overflow-hidden">
+      <section id="product-spotlight" className="py-20 md:py-48 px-6 relative overflow-hidden">
         {/* Background Effects */}
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-royal/[0.04] blur-[120px] rounded-full pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-royal/[0.03] blur-[100px] rounded-full pointer-events-none"></div>
