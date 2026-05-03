@@ -3,6 +3,8 @@
 
 import React from 'react';
 import { Language } from '../App.tsx';
+import { ImagesScrollingAnimation } from './ui/images-scrolling-animation.tsx';
+import { ScrollAnimatedText } from './ui/text-scroll-animation.tsx';
 
 const PortfolioItem: React.FC<{
   title: string;
@@ -63,21 +65,27 @@ const Portfolio: React.FC<PortfolioProps> = ({ lang }) => {
     { title: "Dent Nine Clinic", category: t.c4, image: "/assets/brightsmile dental.png", link: "https://dent-nine.vercel.app/", delay: "0.4s" }
   ];
 
+  const scrollingProjects = projects.map(p => ({
+    title: p.title,
+    category: p.category,
+    src: p.image,
+    link: p.link
+  }));
+
   return (
-    <section id="work" className="py-32 px-6">
+    <section id="work" className="py-32 md:py-48 px-6">
       <div className="container mx-auto max-w-6xl">
-        <div className="mb-20 reveal">
-          <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter mb-6">
-            {lang === 'en' ? <>Selected <span className="text-royal">Works.</span></> : <>Επιλεγμένα <span className="text-royal">Έργα.</span></>}
-          </h2>
-          <p className="text-white/60 text-lg md:text-xl font-sans max-w-2xl">
+        <div className="mb-20">
+          <div className="flex flex-wrap gap-x-4 mb-6">
+            <ScrollAnimatedText text={lang === 'en' ? "Selected" : "Επιλεγμένα"} className="text-4xl md:text-7xl font-serif text-white tracking-tighter leading-none" />
+            <ScrollAnimatedText text={lang === 'en' ? "Works." : "Έργα."} className="text-4xl md:text-7xl font-serif text-royal italic tracking-tighter leading-none" />
+          </div>
+          <p className="text-white/40 text-base md:text-xl font-light max-w-2xl leading-relaxed">
             {t.intro}
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          {projects.map((project, idx) => (
-            <PortfolioItem key={idx} {...project} viewText={t.view} />
-          ))}
+        <div className="w-full relative mt-10">
+          <ImagesScrollingAnimation projects={scrollingProjects} />
         </div>
         <div className="mt-20 text-center reveal">
           <button className="px-10 py-4 border border-white/10 rounded-full text-sm font-semibold text-white hover:border-royal hover:text-royal transition-all duration-300">

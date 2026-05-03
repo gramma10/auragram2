@@ -30,7 +30,7 @@
     <style type="text/tailwindcss">
         @layer base {
             body {
-                @apply bg-midnight text-white font-sans selection:bg-royal selection:text-white antialiased cursor-none;
+                @apply bg-midnight text-white font-sans selection:bg-royal selection:text-white antialiased;
                 overflow-x: hidden;
             }
 
@@ -74,14 +74,21 @@
         .hero-title-gradient {
             background: linear-gradient(180deg, #FFFFFF 0%, #3533cd 100%);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        a,
-        button,
-        input,
-        textarea {
-            cursor: none !important;
+        /* Only hide cursor on devices with a mouse pointer */
+        @media (pointer: fine) {
+            body {
+                cursor: none;
+            }
+            a,
+            button,
+            input,
+            textarea {
+                cursor: none !important;
+            }
         }
     </style>
 
@@ -98,11 +105,27 @@
   }
 }
 </script>
-  <script type="module" crossorigin src="/assets/index-BleJqnaq.js"></script>
+  <script type="module" crossorigin src="/assets/index-DZlDwmHA.js"></script>
 </head>
 
 <body>
     <div id="root"></div>
+    <script type="text/javascript">
+      (function(d, t) {
+          var v = d.createElement(t), s = d.getElementsByTagName(t)[0];
+          v.onload = function() {
+            window.voiceflow.chat.load({
+              verify: { projectID: '69b07ed29ab60483bebd7c54' },
+              url: 'https://general-runtime.voiceflow.com',
+              versionID: 'production',
+              voice: {
+                url: "https://runtime-api.voiceflow.com"
+              }
+            });
+          }
+          v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs"; v.type = "text/javascript"; s.parentNode.insertBefore(v, s);
+      })(document, 'script');
+    </script>
 </body>
 
 </html>

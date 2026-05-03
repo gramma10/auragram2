@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { Language } from '../App.tsx';
-import { span } from 'framer-motion/client';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 interface HeroProps {
   lang: Language;
@@ -13,74 +13,70 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({ lang, onStartProject }) => {
   const content = {
     en: {
-      sub: "Design Engineering Studio",
+      sub: "Custom Software · Web Design · Business Automation",
       title: (
         <span className="flex flex-col">
-          <span>Architects of</span>
-          <span>Digital Aura.</span>
+          <span>Build. Automate. Scale.</span>
+          <span className="hidden md:block">Designed to Convert.</span>
         </span>
       ),
-      desc: <>We blend the emotional essence of <span className="text-white">Aura</span> with the <br className="hidden md:block" /> structural integrity of <span className="text-royal">Gram</span>.</>,
-      btn1: "Start Now",
-      btn2: "Explore Work"
+      desc: <>Custom software, high <span className="text-white">performance</span>,{' '}<br className="hidden md:block" />websites, and business automations engineered for <span className="text-royal">growth</span>.</>,
+      btn1: "Start Now"
     },
     gr: {
-      sub: "Κατασκευη website & συστημάτων",
+      sub: "Λογισμικά · Ιστοσελίδες · Αυτοματισμοί Επιχειρήσεων",
       title: (
         <span className="flex flex-col">
-          <span>Αρχιτέκτονες της</span>
-          <span>Ψηφιακής Αύρας.</span>
+          <span>Σχεδιάζουμε. Αυτοματοποιούμε. Εξελίσσουμε.</span>
         </span>
       ),
-      desc: <>Σχεδιάζουμε το     <span className="text-white">Παρόν </span> και αυτοματοποιούμε το <span className="text-royal"> Μέλλον</span>,  της επιχείρησης σου.</>,
-      btn1: "Ξεκινήστε",
-      btn2: "Δείτε τα Έργα"
+      desc: <>Σχεδιάζουμε το <span className="text-white">Παρόν</span> και αυτοματοποιούμε το <span className="text-royal">Μέλλον</span> της επιχείρησής σας.</>,
+      btn1: "Ξεκινηστε"
     }
   };
 
   const t = content[lang];
 
-  // Conditional font sizes for Greek to ensure it fits in two lines as requested
+  // Refined font sizes for a more premium, airy look
   const headingSizeClass = lang === 'gr'
-    ? "text-[10vw] sm:text-[8.5vw] md:text-[6.5rem] lg:text-[8.5rem] xl:text-[9.5rem]"
-    : "text-[12vw] sm:text-[10vw] md:text-[8rem] lg:text-[10rem] xl:text-[11rem]";
+    ? "text-[9vw] sm:text-[4vw] md:text-[3rem] lg:text-[4rem] xl:text-[4.5rem]"
+    : "text-[10vw] sm:text-[5vw] md:text-[3.5rem] lg:text-[4.5rem] xl:text-[5rem]";
+
+  // Scroll Parallax Effect
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 500], [0, 150]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-12 overflow-hidden px-6">
+    <section className="relative min-h-screen flex flex-col items-center justify-center pt-24 md:pt-32 pb-12 overflow-hidden px-6">
       {/* Background Aura */}
       <div className="absolute inset-0 aura-mesh opacity-60 pointer-events-none"></div>
 
-      <div className="relative z-10 text-center max-w-7xl mx-auto reveal active">
-        <span className="text-royal font-bold tracking-[0.4em] text-[10px] md:text-[12px] uppercase mb-10 block animate-fade-in">
+      <motion.div style={{ y, opacity }} className="relative z-10 text-center max-w-7xl mx-auto">
+        <span className="text-royal font-bold tracking-[0.3em] text-[8px] md:text-[12px] uppercase mb-8 md:mb-10 block">
           {t.sub}
         </span>
 
-        <h1 className={`${headingSizeClass} mb-12 leading-[0.85] font-bold hero-title-gradient tracking-tighter inline-block`}>
+        <h1 className={`${headingSizeClass} mb-8 md:mb-12 leading-[0.95] font-bold hero-title-gradient tracking-tighter inline-block`}>
           {t.title}
         </h1>
 
-        <p className="text-white/60 text-lg md:text-2xl lg:text-3xl font-medium max-w-4xl mx-auto leading-tight mb-20 px-4">
+        <p className="text-white/40 text-sm md:text-xl lg:text-2xl font-light max-w-2xl mx-auto leading-relaxed mb-12 md:mb-16 px-4">
           {t.desc}
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-10">
+        <div className="flex items-center justify-center">
           <button
             onClick={onStartProject}
-            className="w-full sm:w-auto px-14 py-6 bg-royal text-white rounded-full text-[14px] md:text-[16px] font-bold hover:bg-white hover:text-midnight transition-all duration-500 shadow-xl shadow-royal/40 scale-100 hover:scale-105 active:scale-95 uppercase tracking-widest"
+            className="px-8 py-3.5 md:px-10 md:py-4 bg-royal text-white rounded-full text-[11px] md:text-[13px] font-black uppercase tracking-[0.2em] hover:bg-white hover:text-midnight transition-all duration-500 shadow-lg shadow-royal/20 scale-100 hover:scale-105 active:scale-95"
           >
             {t.btn1}
           </button>
-          <a
-            href="#work"
-            className="px-14 py-6 text-white/50 hover:text-white text-[14px] md:text-[16px] font-bold transition-all duration-300 group"
-          >
-            <span className="border-b border-transparent group-hover:border-white transition-all duration-300">{t.btn2}</span> &rsaquo;
-          </a>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-20 reveal active" style={{ transitionDelay: '1s' }}>
-        <div className="w-[1px] h-24 bg-gradient-to-b from-royal to-transparent"></div>
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-10">
+        <div className="w-[1px] h-16 bg-gradient-to-b from-royal to-transparent"></div>
       </div>
     </section>
   );

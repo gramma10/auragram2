@@ -30,9 +30,14 @@ const Footer: React.FC<FooterProps> = ({ lang, onStartProject }) => {
               </h3>
             </div>
             <div className="flex space-x-8">
-              {['Instagram', 'Twitter', 'LinkedIn'].map(link => (
-                <a key={link} href="#" className="text-sm font-semibold text-white/40 hover:text-white transition-colors">{link}</a>
-              ))}
+              <a 
+                href="https://www.instagram.com/auragram.gr/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-sm font-semibold text-white/40 hover:text-white transition-colors"
+              >
+                Instagram
+              </a>
             </div>
           </div>
           
