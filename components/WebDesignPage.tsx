@@ -40,7 +40,7 @@ const FeatureCard: React.FC<{
       ease: [0.25, 1, 0.5, 1],
       delay: index * 0.15
     }}
-    className="group p-8 md:p-10 rounded-3xl border border-white/[0.07] hover:border-royal/30 bg-white/[0.015] hover:bg-white/[0.04] transition-colors duration-500 relative overflow-hidden"
+    className="group p-6 md:p-10 rounded-3xl border border-white/[0.07] hover:border-royal/30 bg-white/[0.015] hover:bg-white/[0.04] transition-colors duration-500 relative overflow-hidden"
     style={{ perspective: "1000px" }}
   >
     {/* Subtle Inner Glow */}
@@ -120,25 +120,23 @@ const WebDesignPage: React.FC<WebDesignPageProps> = ({ lang, setLang, onStartPro
     <div className="relative min-h-screen text-white selection:bg-royal/30">
       <ShaderBackground />
 
-      {/* Floating Decorative Elements */}
+      {/* Floating Decorative Elements - Simplified for Mobile Performance */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         <motion.div
           animate={{
             y: [0, -20, 0],
             x: [0, 10, 0],
-            rotate: [0, 5, 0]
           }}
           transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-          className="absolute top-[20%] -left-20 w-96 h-96 bg-royal/5 blur-[120px] rounded-full"
+          className="absolute top-[20%] -left-20 w-96 h-96 bg-royal/5 blur-[120px] rounded-full hidden md:block"
         />
         <motion.div
           animate={{
             y: [0, 30, 0],
             x: [0, -20, 0],
-            rotate: [0, -10, 0]
           }}
           transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-[20%] -right-20 w-[500px] h-[500px] bg-royal/[0.03] blur-[150px] rounded-full"
+          className="absolute bottom-[20%] -right-20 w-[500px] h-[500px] bg-royal/[0.03] blur-[150px] rounded-full hidden md:block"
         />
       </div>
 
@@ -147,21 +145,15 @@ const WebDesignPage: React.FC<WebDesignPageProps> = ({ lang, setLang, onStartPro
       <main className="relative z-10">
 
         {/* ── HERO ── */}
-        <section className="min-h-[95vh] flex flex-col items-center justify-center pt-36 pb-24 px-6 text-center">
+        <section className="min-h-screen flex flex-col items-center justify-center pt-56 pb-24 px-6 text-center">
           <div className="max-w-4xl mx-auto">
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              className="mb-10"
-            >
-              <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-white/50 text-[10px] font-bold uppercase tracking-[0.4em]">
-                <span className="w-1.5 h-1.5 rounded-full bg-royal animate-pulse shadow-[0_0_8px_rgba(53,51,205,0.8)]" />
+            <div className="flex flex-col items-center justify-center mb-8 mt-12 md:mt-0">
+              <span className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md text-white/50 text-[11px] font-bold uppercase tracking-[0.4em] mb-10">
+                <span className="w-2 h-2 rounded-full bg-royal animate-pulse shadow-[0_0_10px_rgba(53,51,205,0.8)]" />
                 {t.tag}
               </span>
-            </motion.div>
+            </div>
 
             <div className="flex flex-col items-center justify-center mb-8">
               <ScrollAnimatedText

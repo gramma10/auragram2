@@ -42,17 +42,24 @@ const Hero: React.FC<HeroProps> = ({ lang, onStartProject }) => {
     ? "text-[9vw] sm:text-[4vw] md:text-[3rem] lg:text-[4rem] xl:text-[4.5rem]"
     : "text-[10vw] sm:text-[5vw] md:text-[3.5rem] lg:text-[4.5rem] xl:text-[5rem]";
 
-  // Scroll Parallax Effect
+  // Scroll Parallax Effect - Premium 3D animation
   const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 500], [0, 150]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  
+  const y = useTransform(scrollY, [0, 500], [0, isMobile ? 50 : 150]);
+  const opacity = useTransform(scrollY, [0, 400], [1, 0]);
+  const scale = useTransform(scrollY, [0, 500], [1, isMobile ? 0.9 : 0.85]);
+  const rotateX = useTransform(scrollY, [0, 500], [0, isMobile ? 5 : 15]);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-24 md:pt-32 pb-12 overflow-hidden px-6">
+    <section className="relative min-h-screen flex flex-col items-center justify-center pt-24 md:pt-32 pb-12 overflow-hidden px-6" style={{ perspective: "1000px" }}>
       {/* Background Aura */}
       <div className="absolute inset-0 aura-mesh opacity-60 pointer-events-none"></div>
 
-      <motion.div style={{ y, opacity }} className="relative z-10 text-center max-w-7xl mx-auto">
+      <motion.div 
+        style={{ y, opacity, scale, rotateX }} 
+        className="relative z-10 text-center max-w-7xl mx-auto will-change-transform"
+      >
         <span className="text-royal font-bold tracking-[0.3em] text-[8px] md:text-[12px] uppercase mb-8 md:mb-10 block">
           {t.sub}
         </span>

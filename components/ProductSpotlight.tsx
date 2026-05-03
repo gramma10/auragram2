@@ -36,10 +36,11 @@ const MacBookMockup: React.FC<{ videoSrc: string; onClick: () => void }> = ({ vi
       </div>
       <div className="relative aspect-[16/10] overflow-hidden bg-black">
         <video
-          src={videoSrc}
           muted autoPlay loop playsInline preload="metadata"
           className="w-full h-full object-cover"
-        />
+        >
+          <source src={videoSrc} type="video/mp4" />
+        </video>
         <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
           <div className="w-16 h-16 rounded-full bg-royal/90 backdrop-blur-sm flex items-center justify-center shadow-xl shadow-royal/40 scale-90 group-hover:scale-100 transition-transform duration-500">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="white" className="ml-1">
@@ -74,7 +75,10 @@ const VideoModal: React.FC<{ isOpen: boolean; onClose: () => void; videoSrc: str
   }, [isOpen, onClose]);
 
   useEffect(() => {
-    if (isOpen && videoRef.current) videoRef.current.play();
+    if (isOpen && videoRef.current) {
+      videoRef.current.load();
+      videoRef.current.play().catch(e => console.error("Modal video play failed:", e));
+    }
   }, [isOpen]);
 
   if (!isOpen) return null;
@@ -101,7 +105,18 @@ const VideoModal: React.FC<{ isOpen: boolean; onClose: () => void; videoSrc: str
         className="relative w-[90vw] max-w-5xl rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-royal/20"
         onClick={(e) => e.stopPropagation()}
       >
-        <video ref={videoRef} src={videoSrc} controls autoPlay playsInline className="w-full aspect-video bg-black" />
+        <video 
+          ref={videoRef} 
+          controls 
+          autoPlay 
+          muted 
+          playsInline 
+          className="w-full aspect-video bg-black"
+          onLoadedData={() => console.log("Video loaded successfully")}
+          onError={(e) => console.error("Video load error", e)}
+        >
+          <source src={videoSrc} type="video/mp4" />
+        </video>
       </motion.div>
     </motion.div>
   );
@@ -114,7 +129,7 @@ interface ProductSpotlightProps {
 
 const ProductSpotlight: React.FC<ProductSpotlightProps> = ({ lang }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const videoSrc = '/assets/0313.mp4';
+  const videoSrc = 'assets/0313.mp4';
   const descRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress: descScrollProgress } = useScroll({
@@ -158,7 +173,7 @@ const ProductSpotlight: React.FC<ProductSpotlightProps> = ({ lang }) => {
 
   return (
     <>
-      <section id="product-spotlight" className="py-24 md:py-32 px-6 relative overflow-hidden">
+      <section id="product-spotlight" className="relative py-24 md:py-32 px-6 overflow-hidden">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-royal/[0.04] blur-[120px] rounded-full pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-royal/[0.03] blur-[100px] rounded-full pointer-events-none"></div>
 
@@ -178,7 +193,7 @@ const ProductSpotlight: React.FC<ProductSpotlightProps> = ({ lang }) => {
                 <ScrollAnimatedText text={t.headingLine2} className="text-4xl md:text-5xl lg:text-[3.5rem] font-serif text-royal italic tracking-tight leading-[1.1] block" />
               </div>
 
-              <div ref={descRef} className="mb-16 md:mb-20 max-w-xl">
+              <div ref={descRef} className="relative mb-16 md:mb-20 max-w-xl">
                 <WordReveal text={t.description} progress={descScrollProgress} className="text-white text-base md:text-lg leading-relaxed font-light" />
               </div>
 

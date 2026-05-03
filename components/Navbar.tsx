@@ -257,24 +257,8 @@ const Navbar: React.FC<NavbarProps> = ({ lang, setLang, onStartProject }) => {
           </button>
         </div>
 
-        {/* ── Mobile: Lang + Hamburger ── */}
+        {/* ── Mobile: Hamburger Only ── */}
         <div className="flex md:hidden items-center gap-3">
-          {/* Language Toggle (mobile) */}
-          <div className="flex items-center gap-1 bg-white/[0.05] border border-white/[0.07] rounded-full px-2.5 py-1">
-            <button
-              onClick={() => setLang('en')}
-              className={`text-[10px] font-bold tracking-wide transition-colors ${lang === 'en' ? 'text-royal' : 'text-white/30'}`}
-            >
-              EN
-            </button>
-            <span className="text-white/15 text-[9px]">|</span>
-            <button
-              onClick={() => setLang('gr')}
-              className={`text-[10px] font-bold tracking-wide transition-colors ${lang === 'gr' ? 'text-royal' : 'text-white/30'}`}
-            >
-              GR
-            </button>
-          </div>
 
           {/* Hamburger */}
           <button
@@ -364,8 +348,25 @@ const Navbar: React.FC<NavbarProps> = ({ lang, setLang, onStartProject }) => {
             {t.contact}
           </a>
 
-          {/* Mobile CTA */}
-          <div className="pt-3 mt-2 border-t border-white/[0.06]">
+          {/* Mobile CTA + Lang Toggle */}
+          <div className="pt-5 mt-2 border-t border-white/[0.06] flex flex-col gap-4">
+            {/* Language Toggle (mobile menu) */}
+            <div className="flex items-center justify-center gap-4 bg-white/[0.05] border border-white/[0.07] rounded-full py-2 mx-auto px-6">
+              <button
+                onClick={() => setLang('en')}
+                className={`text-[12px] font-bold tracking-widest transition-colors ${lang === 'en' ? 'text-royal' : 'text-white/30 hover:text-white/60'}`}
+              >
+                ENGLISH
+              </button>
+              <span className="text-white/15 text-[10px]">|</span>
+              <button
+                onClick={() => setLang('gr')}
+                className={`text-[12px] font-bold tracking-widest transition-colors ${lang === 'gr' ? 'text-royal' : 'text-white/30 hover:text-white/60'}`}
+              >
+                ΕΛΛΗΝΙΚΑ
+              </button>
+            </div>
+
             <button
               onClick={() => { onStartProject(); closeMobile(); }}
               className="w-full px-6 py-3.5 bg-royal text-white rounded-full text-[12px] font-black uppercase tracking-widest hover:bg-white hover:text-midnight transition-all duration-300 shadow-[0_0_20px_rgba(53,51,205,0.35)]"

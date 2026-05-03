@@ -18,8 +18,8 @@
     <meta name="description" content="We engineer scalable digital infrastructures that upgrade your brand image, automate your daily operations, and drive measurable growth.">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="favicon.png">
-    <link rel="apple-touch-icon" href="favicon.png">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
 
 
     <!-- Open Graph / Facebook / WhatsApp / LinkedIn / Slack -->
@@ -27,13 +27,13 @@
     <meta property="og:url" content="https://www.auragram.gr/">
     <meta property="og:title" content="AuraGram | Tech Infrastructure for Scaling Businesses">
     <meta property="og:description" content="You don't have a marketing problem. You have an infrastructure problem. We build the tech that lets you focus on scaling.">
-    <meta property="og:image" content="https://www.auragram.gr/og-image.jpg">
+    <meta property="og:image" content="https://www.auragram.gr/assets/og-image.jpg">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="AuraGram | Tech Infrastructure for Scaling Businesses">
     <meta name="twitter:description" content="You don't have a marketing problem. You have an infrastructure problem. We build the tech that lets you focus on scaling.">
-    <meta name="twitter:image" content="https://www.auragram.gr/og-image.jpg">
+    <meta name="twitter:image" content="https://www.auragram.gr/assets/og-image.jpg">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link
@@ -107,6 +107,25 @@
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+        .animate-pulse-slow { 
+            animation: pulse-slow 8s infinite ease-in-out; 
+        }
+
+        @keyframes scan-y {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        @keyframes scan-x {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        .animate-scan-y { animation: scan-y 10s linear infinite; }
+        .animate-scan-x { animation: scan-x 15s linear infinite; }
 
         /* Only hide cursor on devices with a mouse pointer */
         @media (pointer: fine) {

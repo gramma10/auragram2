@@ -26,7 +26,9 @@ export const CharacterV1 = ({
   // More dramatic movement and blur reveal
   const x = useTransform(scrollYProgress, [0, 0.5], [distanceFromCenter * 80, 0]);
   const rotateY = useTransform(scrollYProgress, [0, 0.5], [distanceFromCenter * 45, 0]);
-  const filter = useTransform(scrollYProgress, [0, 0.3, 0.5], ["blur(12px)", "blur(4px)", "blur(0px)"]);
+  // Optimized blur for mobile (disabled on mobile for performance)
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const filter = useTransform(scrollYProgress, [0, 0.3, 0.5], [isMobile ? "blur(0px)" : "blur(12px)", isMobile ? "blur(0px)" : "blur(4px)", "blur(0px)"]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.5], [0, 0.4, 1]);
   const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
 
@@ -113,7 +115,7 @@ export const ScrollAnimatedText: React.FC<ScrollAnimatedTextProps> = ({ text, cl
   let charCount = 0;
 
   return (
-    <div ref={containerRef} className={cn("inline-block", className)} style={{ perspective: "1000px" }}>
+    <div ref={containerRef} className={cn("inline-block relative", className)} style={{ perspective: "1000px" }}>
       {words.map((word, wordIndex) => {
         const wordChars = word.split("");
         const result = (
@@ -169,7 +171,7 @@ export const ScrollAnimatedIcons: React.FC<ScrollAnimatedIconsProps> = ({ icons,
   const Character = variant === 'v2' ? CharacterV2 : CharacterV3;
 
   return (
-    <div ref={containerRef} className={cn("flex flex-wrap items-center justify-center gap-8", className)} style={{ perspective: "1000px" }}>
+    <div ref={containerRef} className={cn("flex flex-wrap items-center justify-center gap-8 relative", className)} style={{ perspective: "1000px" }}>
       {icons.map((icon, index) => (
         <Character
           key={index}
